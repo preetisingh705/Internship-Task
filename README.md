@@ -11,7 +11,7 @@ This project is a web application developed using Next.js, a React framework for
 
 ## Preview
 
-You can preview the project [here]().
+You can preview the project [here](https://internship-task-preetisingh705s-projects.vercel.app/).
 
 ## Technologies Used
 
