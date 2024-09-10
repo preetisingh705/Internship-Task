@@ -1,101 +1,67 @@
-import Image from "next/image";
+'use client'; // Ensure strict mode
 
+import React from 'react';
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Function to handle sending notifications
+  const handleSendNotification = async () => {
+    // Request permission for notifications
+    let permission = await Notification.requestPermission();
+    
+    // Check if the browser supports notifications and permission is granted
+    if (permission === 'granted') {
+      // Notification options
+      let notificationOptions = {
+        body: 'Some Notification information',
+        icon: '/notification-icon.png'
+      };
+      // Create a new notification
+      let notif = new Notification('My New Notification', notificationOptions);
+
+      // Event handler for notification click
+      notif.onclick = () => {
+        console.log('Notification clicked');
+      };
+    } else {
+      alert('Notification Permission Denied! kindly Allow Permission to send Notification.');
+      console.log('Notification permission not granted.');
+    }
+  };
+
+  // Render the component
+  return (
+    <div className="text-4xl font-bold text-white">
+      {/* Section for displaying images */}
+      <div className="flex flex-row justify-between gap-6 m-3">
+        <div>
+          <img src="/basic.png" alt="Time and Location" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div>
+          <img src="/indicators.png" alt="Network and Battery" />
+        </div>
+      </div>
+      {/* Section for displaying text */}
+      <div>
+        <p className="font-inter font-semibold text-[29px] text-center text-white mt-6">Lorem Ipsum...</p>
+        <p className="font-inter font-normal text-white text-[19px] text-opacity-40 text-center pt-4">Lorem ipsum dolor sit amet.</p>
+      </div>
+
+      {/* Section for displaying notification  */}
+      <div className="m-2 mt-12">
+        <div className="relative">
+          <img src="/Illustration.png" alt="waves around bell" className="m-auto relative" />
+          <img src="/ri_notification-2-line.png" alt="Notification" className="m-auto absolute inset-0" />
+        </div>
+      </div>
+
+      {/* Section for sending notifications */}
+      <div className="flex items-center justify-center mt-16 mb-6 ml-10 mr-10">
+        <button onClick={handleSendNotification} className="relative w-[327px] h-[42px] rounded-md p-0 shadow-md overflow-hidden bg-gradient-to-r from-transparent via-red-600 to-transparent font-inter font-semibold text-[16px] text-center text-white small-screen  md:w-[280px] md:h-[38px] lg:w-[300px] lg:h-[38px]">
+          <span className="absolute inset-0 z-[-1] bg-gradient-to-r from-transparent via-red-600 to-transparent  border-solid border-[1.4px] rounded-md"></span>
+          <span className="text-sm">Send Notification</span>
+        </button>
+      </div>
     </div>
   );
 }
+
